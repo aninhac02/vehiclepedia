@@ -1,5 +1,6 @@
 package com.api.vehiclepedia.controller;
 
+import com.api.vehiclepedia.model.entity.Car;
 import com.api.vehiclepedia.model.service.CarService;
 import com.api.vehiclepedia.utils.UrlsConsts;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,8 +34,10 @@ public class CarController {
     }
 
     @GetMapping("/{brandCode}/{modelCode}/{yearCode}")
-    public String getCar(@PathVariable String brandCode, @PathVariable String modelCode, @PathVariable String yearCode) {
+    public Car getCar(@PathVariable String brandCode, @PathVariable String modelCode, @PathVariable String yearCode) {
         String url = UrlsConsts.CAR_URL + brandCode + UrlsConsts.MODELS_URL + modelCode + UrlsConsts.YEARS_URL + yearCode;
-        return carService.getInfo(url);
+        return carService.getVehicle(url);
     }
+
+
 }

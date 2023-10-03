@@ -1,7 +1,5 @@
 package com.api.vehiclepedia.model.entity;
 
-import lombok.Data;
+public class Car extends Vehicle {
 
-@Data
-public class Car implements Vehicle {
 }
