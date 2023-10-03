@@ -1,10 +1,7 @@
 package com.api.vehiclepedia.model.service;
 
-import com.api.vehiclepedia.model.entity.Car;
 import com.api.vehiclepedia.model.entity.Motorcycle;
 import net.minidev.json.JSONObject;
-import net.minidev.json.parser.JSONParser;
-import net.minidev.json.parser.ParseException;
 import org.springframework.stereotype.Service;
 
 @Service

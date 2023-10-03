@@ -1,14 +1,8 @@
 package com.api.vehiclepedia.model.service;
 
 import com.api.vehiclepedia.model.entity.Car;
-import com.api.vehiclepedia.model.entity.Vehicle;
-import com.google.gson.Gson;
 import net.minidev.json.JSONObject;
-import net.minidev.json.parser.JSONParser;
-import net.minidev.json.parser.ParseException;
 import org.springframework.stereotype.Service;
-
-import java.util.HashMap;
 
 @Service
 public class CarService extends VehicleService{
