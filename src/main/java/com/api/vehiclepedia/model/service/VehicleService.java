@@ -1,6 +1,7 @@
 package com.api.vehiclepedia.model.service;
 
 import com.api.vehiclepedia.model.entity.Vehicle;
+import feign.FeignException;
 import net.minidev.json.JSONObject;
 import net.minidev.json.parser.JSONParser;
 import net.minidev.json.parser.ParseException;
@@ -11,8 +12,13 @@ public abstract class VehicleService {
     @Autowired
     FipeExternalRequisitionService fipeExternalRequisitionService;
 
-    public String getInfo(String url) {
-        return fipeExternalRequisitionService.getInfo(url);
+    public String getInfo(String url) throws Exception {
+        try {
+            return fipeExternalRequisitionService.getInfo(url);
+        } catch (Exception e) {
+            throw new Exception("não foi possível acessar os dados, por favor verifique as informações enviadas.");
+        }
+
     }
 
     public JSONObject parseJson(String stringFipeData) {
@@ -27,5 +33,5 @@ public abstract class VehicleService {
         return jsonFipeData;
     }
 
-    public abstract Vehicle getVehicle(String url);
+    public abstract Vehicle getVehicle(String url) throws Exception;
 }

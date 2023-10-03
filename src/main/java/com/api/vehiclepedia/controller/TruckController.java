@@ -16,24 +16,24 @@ public class TruckController {
     @Autowired
     TruckService truckService;
     @GetMapping()
-    public String getBrands() {
+    public String getBrands() throws Exception {
         return truckService.getInfo(UrlsConsts.TRUCK_URL);
     }
 
     @GetMapping("/{brandCode}")
-    public String getModels(@PathVariable String brandCode) {
+    public String getModels(@PathVariable String brandCode) throws Exception {
         String url = UrlsConsts.TRUCK_URL + brandCode + UrlsConsts.MODELS_URL;
         return truckService.getInfo(url);
     }
 
     @GetMapping("/{brandCode}/{modelCode}")
-    public String getYears(@PathVariable String brandCode, @PathVariable String modelCode) {
+    public String getYears(@PathVariable String brandCode, @PathVariable String modelCode) throws Exception {
         String url = UrlsConsts.TRUCK_URL + brandCode + UrlsConsts.MODELS_URL + modelCode + UrlsConsts.YEARS_URL;
         return truckService.getInfo(url);
     }
 
     @GetMapping("/{brandCode}/{modelCode}/{yearCode}")
-    public Truck getCar(@PathVariable String brandCode, @PathVariable String modelCode, @PathVariable String yearCode) {
+    public Truck getTruck(@PathVariable String brandCode, @PathVariable String modelCode, @PathVariable String yearCode) throws Exception {
         String url = UrlsConsts.TRUCK_URL + brandCode + UrlsConsts.MODELS_URL + modelCode + UrlsConsts.YEARS_URL + yearCode;
         return truckService.getVehicle(url);
     }
