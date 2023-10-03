@@ -6,4 +6,5 @@ public interface Vehicle {
     String brand = null;
     String year = null;
     double price = 0;
+
 }
