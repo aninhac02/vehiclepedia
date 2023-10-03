@@ -16,13 +16,7 @@ public class CarService extends VehicleService{
     public Car getVehicle(String url) {
         String stringFipeData = fipeExternalRequisitionService.getInfo(url);
 
-        JSONParser parser = new JSONParser();
-        JSONObject jsonFipeData;
-        try {
-            jsonFipeData  = (JSONObject) parser.parse(stringFipeData);
-        } catch (ParseException e) {
-            throw new RuntimeException(e);
-        }
+        JSONObject jsonFipeData = parseJson(stringFipeData);
 
         Car car = new Car();
         car.setBrand(jsonFipeData.getAsString("Marca"));
