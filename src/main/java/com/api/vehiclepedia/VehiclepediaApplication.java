@@ -9,5 +9,4 @@ public class VehiclepediaApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(VehiclepediaApplication.class, args);
 	}
-
 }
