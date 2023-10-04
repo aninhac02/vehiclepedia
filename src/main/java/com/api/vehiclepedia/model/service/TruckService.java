@@ -8,8 +8,13 @@ import org.springframework.stereotype.Service;
 public class TruckService extends VehicleService {
 
     @Override
-    public Truck getVehicle(String url) {
-        String stringFipeData = fipeExternalRequisitionService.getInfo(url);
+    public Truck getVehicle(String url) throws Exception {
+        String stringFipeData;
+        try {
+            stringFipeData = fipeExternalRequisitionService.getInfo(url);
+        } catch (Exception e) {
+            throw new Exception("Erro - não foi possível acessar os dados, por favor verifique as informações enviadas.");
+        }
 
         JSONObject jsonFipeData = parseJson(stringFipeData);
 

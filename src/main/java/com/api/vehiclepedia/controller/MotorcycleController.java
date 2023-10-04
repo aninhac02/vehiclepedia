@@ -16,24 +16,24 @@ public class MotorcycleController {
     @Autowired
     private MotorcycleService motorcycleService;
     @GetMapping()
-    public String getBrands() {
+    public String getBrands() throws Exception {
         return motorcycleService.getInfo(UrlsConsts.MOTORCYCLE_URL);
     }
 
     @GetMapping("/{brandCode}")
-    public String getModels(@PathVariable String brandCode) {
+    public String getModels(@PathVariable String brandCode) throws Exception {
         String url = UrlsConsts.MOTORCYCLE_URL + brandCode + UrlsConsts.MODELS_URL;
         return motorcycleService.getInfo(url);
     }
 
     @GetMapping("/{brandCode}/{modelCode}")
-    public String getYears(@PathVariable String brandCode, @PathVariable String modelCode) {
+    public String getYears(@PathVariable String brandCode, @PathVariable String modelCode) throws Exception {
         String url = UrlsConsts.MOTORCYCLE_URL + brandCode + UrlsConsts.MODELS_URL + modelCode + UrlsConsts.YEARS_URL;
         return motorcycleService.getInfo(url);
     }
 
     @GetMapping("/{brandCode}/{modelCode}/{yearCode}")
-    public Motorcycle getCar(@PathVariable String brandCode, @PathVariable String modelCode, @PathVariable String yearCode) {
+    public Motorcycle getMotorcycle(@PathVariable String brandCode, @PathVariable String modelCode, @PathVariable String yearCode) throws Exception {
         String url = UrlsConsts.MOTORCYCLE_URL + brandCode + UrlsConsts.MODELS_URL + modelCode + UrlsConsts.YEARS_URL + yearCode;
         return motorcycleService.getVehicle(url);
     }
