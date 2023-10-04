@@ -13,7 +13,7 @@ public class MotorcycleService extends VehicleService {
         try {
             stringFipeData = fipeExternalRequisitionService.getInfo(url);
         } catch (Exception e) {
-            throw new Exception("não foi possível acessar os dados, por favor verifique as informações enviadas.");
+            throw new Exception("Erro - não foi possível acessar os dados, por favor verifique as informações enviadas.");
         }
 
         JSONObject jsonFipeData = parseJson(stringFipeData);

@@ -16,7 +16,7 @@ public abstract class VehicleService {
         try {
             return fipeExternalRequisitionService.getInfo(url);
         } catch (Exception e) {
-            throw new Exception("não foi possível acessar os dados, por favor verifique as informações enviadas.");
+            throw new Exception("Erro - não foi possível acessar os dados, por favor verifique as informações enviadas.");
         }
 
     }
@@ -27,7 +27,7 @@ public abstract class VehicleService {
         try {
             jsonFipeData  = (JSONObject) parser.parse(stringFipeData);
         } catch (ParseException e) {
-            throw new RuntimeException(e);
+            throw new RuntimeException("Erro - não foi possível converter os dados do JSON");
         }
 
         return jsonFipeData;
