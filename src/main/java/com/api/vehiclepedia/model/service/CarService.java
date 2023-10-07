@@ -8,15 +8,13 @@ import org.springframework.stereotype.Service;
 public class CarService extends VehicleService{
     @Override
     public Car getVehicle(String url) throws Exception {
-        String stringFipeData;
+        JSONObject jsonFipeData;
+
         try {
-            stringFipeData = fipeExternalRequisitionService.getInfo(url);
+            jsonFipeData = getData(url);
         } catch (Exception e) {
             throw new Exception("Erro - não foi possível acessar os dados, por favor verifique as informações enviadas.");
         }
-
-
-        JSONObject jsonFipeData = parseJson(stringFipeData);
 
         Car car = new Car();
         car.setBrand(jsonFipeData.getAsString("Marca"));
