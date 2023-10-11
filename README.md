@@ -52,5 +52,5 @@ Desenvolvidos com Mockito e JUnit 5.
 
 
 ### Mecanismo de cache: 
-Desenvolvido via AWS S3.
+Desenvolvido via AWS S3 (para usar é necessário ter as access keys e o endpoint do bucket AWS S3.
 
