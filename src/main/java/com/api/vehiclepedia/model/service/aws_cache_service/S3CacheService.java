@@ -1,43 +1,33 @@
 package com.api.vehiclepedia.model.service.aws_cache_service;
 
 import com.amazonaws.services.s3.AmazonS3;
-import com.amazonaws.services.s3.AmazonS3ClientBuilder;
 import com.amazonaws.services.s3.model.ObjectMetadata;
 import com.amazonaws.services.s3.model.PutObjectRequest;
 import com.amazonaws.services.s3.model.S3Object;
 import com.amazonaws.services.s3.model.S3ObjectInputStream;
-import com.amazonaws.util.StringUtils;
-import com.fasterxml.jackson.core.type.TypeReference;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import net.minidev.json.JSONArray;
 import net.minidev.json.JSONObject;
 import org.apache.commons.io.FileUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
-import software.amazon.awssdk.core.sync.RequestBody;
 
 import java.io.*;
 import java.nio.charset.StandardCharsets;
-import java.util.List;
-import java.util.Map;
 
 @Service
 public class S3CacheService {
 
     private final AmazonS3 amazonS3;
     private final String bucketName;
-    private final String cacheKey;
 
     @Autowired
-    public S3CacheService(AmazonS3 amazonS3, @Value("${aws.bucketName}") String bucketName, @Value("${aws.cache.key}") String cacheKey) {
+    public S3CacheService(AmazonS3 amazonS3, @Value("${aws.bucketName}") String bucketName) {
         this.amazonS3 = amazonS3;
         this.bucketName = bucketName;
-        this.cacheKey = cacheKey;
     }
 
-    public String getCachedData() throws IOException {
+    public String getCachedData(String cacheKey) throws IOException {
         String cachedData;
             if (amazonS3.doesObjectExist(bucketName, cacheKey)) {
                 S3Object object = amazonS3.getObject(bucketName, cacheKey);
@@ -62,7 +52,7 @@ public class S3CacheService {
         return null;
     }
 
-    public void putDataInCache(String jsonData) throws IOException {
+    public void putDataInCache(String jsonData, String cacheKey) throws IOException {
         writeInCacheFile(jsonData);
 
         PutObjectRequest putObjectRequest = new PutObjectRequest(bucketName, cacheKey, new File("cached_data.txt"));

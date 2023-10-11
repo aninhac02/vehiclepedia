@@ -2,16 +2,14 @@ package com.api.vehiclepedia.model.service;
 
 import com.api.vehiclepedia.model.entity.Vehicle;
 import com.api.vehiclepedia.model.service.aws_cache_service.S3CacheService;
-import feign.FeignException;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import net.minidev.json.JSONObject;
 import net.minidev.json.parser.JSONParser;
 import net.minidev.json.parser.ParseException;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.io.IOException;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Map;
 
 public abstract class VehicleService {
 
@@ -24,8 +22,9 @@ public abstract class VehicleService {
     public String getInfo(String url) throws Exception {
         String cachedFipeData;
         String stringFipeData;
+        String cacheKey = url;
         try {
-            cachedFipeData = s3CacheService.getCachedData();
+            cachedFipeData = s3CacheService.getCachedData(cacheKey);
 
             if (cachedFipeData != null) {
                 stringFipeData = cachedFipeData;
@@ -33,7 +32,7 @@ public abstract class VehicleService {
             } else {
                 stringFipeData = fipeExternalRequisitionService.getInfo(url);
                // cachedFipeData = parseJson(stringFipeData);
-               s3CacheService.putDataInCache(stringFipeData);
+               s3CacheService.putDataInCache(stringFipeData, cacheKey);
             }
 
             return stringFipeData;
@@ -58,17 +57,25 @@ public abstract class VehicleService {
 
     public abstract Vehicle getVehicle(String url) throws Exception;
 
-    public JSONObject getData(String url) {
+    public JSONObject getData(String url) throws JsonProcessingException {
         String stringFipeData;
-        JSONObject jsonFipeData = new JSONObject();
-        //jsonFipeData = s3CacheService.getCachedData();
-
-        if (jsonFipeData.isEmpty()) {
-           // stringFipeData = fipeExternalRequisitionService.getInfo(url);
-           // jsonFipeData = parseJson(stringFipeData);
-            //s3CacheService.putDataInCache(jsonFipeData);
+        String cacheKey = url;
+        ObjectMapper objectMapper = new ObjectMapper();
+        try {
+            stringFipeData = s3CacheService.getCachedData(cacheKey);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
         }
-        return jsonFipeData;
+
+        if (stringFipeData == null) {
+           stringFipeData = fipeExternalRequisitionService.getInfo(url);
+            try {
+                s3CacheService.putDataInCache(stringFipeData, cacheKey);
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        }
+        return objectMapper.readValue(stringFipeData, JSONObject.class);
 
     }
 }

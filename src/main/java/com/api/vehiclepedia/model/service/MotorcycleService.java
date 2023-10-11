@@ -9,14 +9,12 @@ public class MotorcycleService extends VehicleService {
 
     @Override
     public Motorcycle getVehicle(String url) throws Exception {
-        String stringFipeData;
+        JSONObject jsonFipeData;
         try {
-            stringFipeData = fipeExternalRequisitionService.getInfo(url);
+            jsonFipeData = getData(url);
         } catch (Exception e) {
             throw new Exception("Erro - não foi possível acessar os dados, por favor verifique as informações enviadas.");
         }
-
-        JSONObject jsonFipeData = parseJson(stringFipeData);
 
         Motorcycle motorcycle = new Motorcycle();
         motorcycle.setBrand(jsonFipeData.getAsString("Marca"));

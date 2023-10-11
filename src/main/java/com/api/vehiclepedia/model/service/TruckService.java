@@ -9,14 +9,12 @@ public class TruckService extends VehicleService {
 
     @Override
     public Truck getVehicle(String url) throws Exception {
-        String stringFipeData;
+        JSONObject jsonFipeData;
         try {
-            stringFipeData = fipeExternalRequisitionService.getInfo(url);
+            jsonFipeData = getData(url);
         } catch (Exception e) {
             throw new Exception("Erro - não foi possível acessar os dados, por favor verifique as informações enviadas.");
         }
-
-        JSONObject jsonFipeData = parseJson(stringFipeData);
 
         Truck truck = new Truck();
         truck.setBrand(jsonFipeData.getAsString("Marca"));
