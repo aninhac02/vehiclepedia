@@ -1,6 +1,9 @@
 package com.api.vehiclepedia.model.service;
 
 import com.api.vehiclepedia.model.entity.Motorcycle;
+import com.api.vehiclepedia.model.service.aws_cache_service.S3CacheService;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import net.minidev.json.JSONObject;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -19,6 +22,12 @@ public class MotorcycleServiceTests {
     @Mock
     private FipeExternalRequisitionService fipeExternalRequisitionService;
 
+    @Mock
+    private VehicleService vehicleService;
+
+    @Mock
+    private S3CacheService s3CacheService;
+
     @InjectMocks
     private MotorcycleService motorcycleService;
 
@@ -30,8 +39,10 @@ public class MotorcycleServiceTests {
     }
 
     @Test
-    public void shouldGetCar() throws Exception {
+    public void shouldGetMotorcycle() throws Exception {
         String stringFipeData = "{\"Marca\": \"Honda\", \"Modelo\": \"CG 125\", \"AnoModelo\": \"2023\", \"Valor\": \"10000.00\", \"Combustivel\": \"Flex\", \"CodigoFipe\": \"000000-01\", \"MesReferencia\": \"08/2023\", \"SiglaCombustivel\": \"F\"}";
+        ObjectMapper objectMapper = new ObjectMapper();
+        JSONObject jsonFipeData = objectMapper.readValue(stringFipeData, JSONObject.class);
         Motorcycle expectedMotorcycle = new Motorcycle();
         expectedMotorcycle.setBrand("Honda");
         expectedMotorcycle.setModel("CG 125");
@@ -43,6 +54,7 @@ public class MotorcycleServiceTests {
         expectedMotorcycle.setFuelAcronym("F");
 
         when(fipeExternalRequisitionService.getInfo(URL)).thenReturn(stringFipeData);
+        when(vehicleService.getData(URL)).thenReturn(jsonFipeData);
 
         Motorcycle actualMotorcycle= motorcycleService.getVehicle(URL);
 
