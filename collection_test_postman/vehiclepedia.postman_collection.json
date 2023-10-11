@@ -1,0 +1,159 @@
+{
+	"info": {
+		"_postman_id": "28d361df-5f3a-49f5-9139-394407552f39",
+		"name": "vehiclepedia",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json",
+		"_exporter_id": "17033493"
+	},
+	"item": [
+		{
+			"name": "carros",
+			"item": [
+				{
+					"name": "marcas",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "http://localhost:8080/carros/marcas"
+					},
+					"response": []
+				},
+				{
+					"name": "modelos",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "http://localhost:8080/carros/marcas/6"
+					},
+					"response": []
+				},
+				{
+					"name": "anos",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "http://localhost:8080/carros/marcas/6/43"
+					},
+					"response": []
+				},
+				{
+					"name": "veiculo",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "http://localhost:8080/carros/marcas/6/43/1995-1"
+					},
+					"response": []
+				}
+			],
+			"description": "Essa pasta contém as requests necessárias pra obter as informações da API da Tabela FIPE sobre **carros**."
+		},
+		{
+			"name": "motos",
+			"item": [
+				{
+					"name": "marcas",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "http://localhost:8080/motos/marcas"
+					},
+					"response": []
+				},
+				{
+					"name": "modelos",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "http://localhost:8080/motos/marcas/77"
+					},
+					"response": []
+				},
+				{
+					"name": "anos",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "http://localhost:8080/motos/marcas/77/5758"
+					},
+					"response": []
+				},
+				{
+					"name": "veiculo",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "http://localhost:8080/motos/marcas/77/6408/2013-1"
+					},
+					"response": []
+				}
+			],
+			"description": "Essa pasta contém as requests necessárias pra obter as informações da API da Tabela FIPE sobre **motos**."
+		},
+		{
+			"name": "caminhoes",
+			"item": [
+				{
+					"name": "marcas",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "http://localhost:8080/caminhoes/marcas"
+					},
+					"response": []
+				},
+				{
+					"name": "modelos",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "http://localhost:8080/caminhoes/marcas/1"
+					},
+					"response": []
+				},
+				{
+					"name": "anos",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "http://localhost:8080/caminhoes/marcas/1/1"
+					},
+					"response": []
+				},
+				{
+					"name": "veiculo",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "http://localhost:8080/caminhoes/marcas/58/7363/2016-1"
+					},
+					"response": []
+				}
+			],
+			"description": "Essa pasta contém as requests necessárias pra obter as informações da API da Tabela FIPE sobre **caminhões**."
+		},
+		{
+			"name": "actuator",
+			"item": [
+				{
+					"name": "info",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				},
+				{
+					"name": "health",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "http://localhost:8080/actuator/health"
+					},
+					"response": []
+				}
+			],
+			"description": "endpoints para observability"
+		}
+	]
+}
