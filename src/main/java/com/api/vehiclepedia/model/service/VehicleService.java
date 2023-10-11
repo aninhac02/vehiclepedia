@@ -10,6 +10,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import java.io.IOException;
 import java.util.Arrays;
+import java.util.List;
+import java.util.Map;
 
 public abstract class VehicleService {
 
@@ -20,18 +22,18 @@ public abstract class VehicleService {
     S3CacheService s3CacheService;
 
     public String getInfo(String url) throws Exception {
-        JSONObject cachedFipeData;
+        String cachedFipeData;
         String stringFipeData;
         try {
             cachedFipeData = s3CacheService.getCachedData();
 
             if (cachedFipeData != null) {
-                stringFipeData = cachedFipeData.toString();
+                stringFipeData = cachedFipeData;
 
             } else {
                 stringFipeData = fipeExternalRequisitionService.getInfo(url);
-                cachedFipeData = parseJson(stringFipeData);
-                s3CacheService.putDataInCache(cachedFipeData);
+               // cachedFipeData = parseJson(stringFipeData);
+               s3CacheService.putDataInCache(stringFipeData);
             }
 
             return stringFipeData;
@@ -58,17 +60,13 @@ public abstract class VehicleService {
 
     public JSONObject getData(String url) {
         String stringFipeData;
-        JSONObject jsonFipeData;
-        try {
-            jsonFipeData = s3CacheService.getCachedData();
+        JSONObject jsonFipeData = new JSONObject();
+        //jsonFipeData = s3CacheService.getCachedData();
 
-            if (jsonFipeData.isEmpty()) {
-                stringFipeData = fipeExternalRequisitionService.getInfo(url);
-                jsonFipeData = parseJson(stringFipeData);
-                s3CacheService.putDataInCache(jsonFipeData);
-            }
-        } catch (IOException e) {
-            throw new RuntimeException(e);
+        if (jsonFipeData.isEmpty()) {
+           // stringFipeData = fipeExternalRequisitionService.getInfo(url);
+           // jsonFipeData = parseJson(stringFipeData);
+            //s3CacheService.putDataInCache(jsonFipeData);
         }
         return jsonFipeData;
 
